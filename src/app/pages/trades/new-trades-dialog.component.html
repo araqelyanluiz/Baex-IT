@@ -1,0 +1,53 @@
+<div class="add-new-trade">
+    <h2 class="title">Add New Trade</h2>
+    <form [formGroup]="tradeForm" (ngSubmit)="addTrade()">
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Entry date</mat-label>
+                    <input matInput [max]="maxDate" [matDatepicker]="entryPicker" formControlName="entryDate" (dateChange)="selectEntryDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="entryPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #entryPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Entry price</mat-label>
+                    <input  matInput type="number" [min]="0" [max]="maxPrice" placeholder="Entry price" formControlName="entryPrice" (change)="calculateProfit()" >
+                    <mat-error>Entry price min value 0.</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Exit date</mat-label>
+                    <input  [min]="minDate" [max]="today" matInput [matDatepicker]="exitPicker" formControlName="exitDate" (dateChange)="selectExitDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="exitPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #exitPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Exit price</mat-label>
+                    <input matInput type="number" [min]="minPrice" [max]="maxPrice"  placeholder="Exit price" formControlName="exitPrice" (change)="calculateProfit()">
+                    <mat-error>Exit price min value 0.</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-12">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Profit</mat-label>
+                    <input readonly matInput type="number"  placeholder="Profit" formControlName="profit">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button mat-flat-button color="primary">
+                <span *ngIf="data">Save</span>
+                <span *ngIf="!data">Add</span>
+            </button>
+        </div>
+    </form>
+</div>
